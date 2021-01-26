@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+
+    defaultConfig {
+        applicationId "cn.edsmall.tablayoutfloatting"
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //给java代码暴露，标记正式环境和测试环境的标记
+        //组件化和集成化的时候需要
+        buildConfigField("boolean", "isModule", String.valueOf(isModule))
+        // 提供给RouteProcessor  处理器接收的参数 代替{@link AbstractProcessor#getSupportedOptions()} 函数
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dependencies {
+        implementation fileTree(dir: "libs", include: ["*.jar"])
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        dependenciesId.each { k, v -> implementation v }
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+        //注解处理器
+        annotationProcessor project(':router-compiler')
+//        //自定义注解模块
+        implementation project(':router-annotation')
+        if (isModule) {
+            implementation project(':login')
+            implementation project(':register')
+        }
+
+    }
+}
+
+
+

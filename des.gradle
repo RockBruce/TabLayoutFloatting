@@ -1,0 +1,30 @@
+ext {
+    //library包(true) 和 集成开发(false)
+    isModule = false
+    url = [
+            "debug"  : "https//192.169.48.2",    //测试环境
+            "release": "https//192.169.48.1"  //正式环境
+    ]
+    appId = [
+            "login": "cn.edsmall.login",
+            "register": "cn.edsmall.register"
+    ]
+
+    //建立Map储存，key和value 都是自定义的
+    androidId =
+            [
+                    compileSdkVersion: 29,
+                    minSdkVersion    : 16,
+                    targetSdkVersion : 29,
+                    versionCode      : 1,
+                    versionName      : "1.0",
+                    // App dependencies
+                    junitVersion     : '4.12',
+                    v7Version        : '26.1.0'
+            ]
+    dependenciesId = [
+            "ktx"             : 'androidx.core:core-ktx:1.3.2',
+            "appcompat"       : 'androidx.appcompat:appcompat:1.2.0',
+            "constraintlayout": 'androidx.constraintlayout:constraintlayout:2.0.4'
+    ]
+}

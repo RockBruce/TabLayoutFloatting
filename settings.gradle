@@ -1,0 +1,6 @@
+include ':router-compiler'
+include ':router-annotation'
+include ':register'
+include ':login'
+include ':app'
+rootProject.name = "TabLayoutFloatting"

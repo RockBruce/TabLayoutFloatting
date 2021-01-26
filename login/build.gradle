@@ -1,0 +1,59 @@
+
+if (isModule) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'    //独立运行条件一
+}
+android {
+    compileSdkVersion androidId.compileSdkVersion
+
+    defaultConfig {
+        if (!isModule) {
+            //组件模块化
+            applicationId appId.login    //独立运行条件二
+        }
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //给java代码暴露，标记正式环境和测试环境的标记
+        //组件化和集成化的时候需要
+        buildConfigField("boolean", "isModule", String.valueOf(isModule))
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            if (!isModule) {
+                //组件化模块，需要单独运行时
+                manifest.srcFile 'src/main/logintest/AndroidManifest.xml'
+                java.srcDirs     'src/main/logintest/java' ,'src/main/java'
+                println("app")
+
+            } else {
+                //集成化模块，整个项目打包
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                println("lib")
+
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+}
