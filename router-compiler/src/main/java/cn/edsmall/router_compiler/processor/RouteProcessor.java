@@ -2,6 +2,7 @@ package cn.edsmall.router_compiler.processor;
 
 import com.google.auto.service.AutoService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,11 +127,11 @@ public class RouteProcessor extends AbstractProcessor {
             TypeMirror typeMirror = element.asType();
             log.i("RouteProcessor class name=" + typeMirror.toString());
             Route route = element.getAnnotation(Route.class);
-            log.i("RouteProcessor route=" +route.path());
+            log.i("RouteProcessor route=" + route.path());
             //只能在指定的类上面使用
             if (typeUtils.isSubtype(typeMirror, activity.asType())) {
-                routeMeta=  new RouteMeta(RouteMeta.Type.ACTIVITY,route,element);
-                log.i("RouteProcessor isSubtype=" +typeUtils.isSubtype(typeMirror, activity.asType()));
+                routeMeta = new RouteMeta(RouteMeta.Type.ACTIVITY, route, element);
+                log.i("RouteProcessor isSubtype=" + typeUtils.isSubtype(typeMirror, activity.asType()));
 
             } else {
                 throw new RuntimeException("[Sorry!! Just support] Activity Route:" + element);
@@ -147,8 +148,49 @@ public class RouteProcessor extends AbstractProcessor {
      * @param routeMeta
      */
     private void categories(RouteMeta routeMeta) {
+        if (routerVerify(routeMeta)) {
+            //分组和组中的路由信息
+            List<RouteMeta> routeMetas = groupMap.get(routeMeta.getGroup());
+            if (Utils.isEmpty(routeMetas)) {
+                routeMetas = new ArrayList<>();
+                routeMetas.add(routeMeta);
+                groupMap.put(routeMeta.getGroup(), routeMetas);
+            } else {
+                routeMetas.add(routeMeta);
+            }
+
+        } else {
+            log.i("Group info Error" + routeMeta.getPath());
+        }
+        //生成$$Group$$  记录分组表
+
+        //生成$$Root$$  记录路由表
+
+
+    }
+
+    /**
+     * 验证地址的合法性
+     *
+     * @param routeMeta
+     * @return
+     */
+    private boolean routerVerify(RouteMeta routeMeta) {
         String path = routeMeta.getPath();
         String group = routeMeta.getGroup();
-
+        //必须以 /开头来指定路由地址
+        if (!path.startsWith("/")) {
+            return false;
+        }
+        //如果group没有设置我们从path中获取group
+        if (Utils.isEmpty(group)) {
+            String defaultGroup = path.substring(1, path.indexOf("/", 1));
+            //截取出来的group还是空
+            if (Utils.isEmpty(defaultGroup)) {
+                return false;
+            }
+            routeMeta.setGroup(defaultGroup);
+        }
+        return true;
     }
 }
