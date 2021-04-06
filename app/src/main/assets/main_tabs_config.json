@@ -1,0 +1,34 @@
+{
+  "activeColor": "#04887C",
+  "inActiveColor": "#333333",
+  "tabs": [
+    {
+      "size": 26,
+      "enable": true,
+      "index": 0,
+      "pageUrl": "main/tabs/home",
+      "title": "首页"
+    },
+    {
+      "size": 26,
+      "enable": true,
+      "index": 1,
+      "pageUrl": "main/tabs/dashboard",
+      "title": "分类"
+    },
+    {
+      "size":26,
+      "enable": true,
+      "index": 2,
+      "pageUrl": "main/tabs/notifications",
+      "title": "采购单"
+    },
+    {
+      "size": 26,
+      "enable": true,
+      "index": 3,
+      "pageUrl": "main/tabs/other",
+      "title": "我的"
+    }
+  ]
+}

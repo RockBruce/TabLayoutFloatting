@@ -5,8 +5,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //在Gradle 5.0将忽略compile classpath中的annotation processor，需要手动添加到annotationprocessor path如下
     implementation 'com.google.auto.service:auto-service:1.0-rc6'
+    implementation 'com.alibaba:fastjson:1.2.75'
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
     implementation 'com.squareup:javapoet:1.7.0'   //可以为我们生成java类
+
     implementation project(path: ':router-annotation')
 }
 tasks.withType(JavaCompile) {

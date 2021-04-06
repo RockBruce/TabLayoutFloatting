@@ -25,11 +25,16 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import cn.edsmall.router_annotation.Route;
+import cn.edsmall.router_annotation.destination.FragmentDestination;
 import cn.edsmall.router_annotation.model.RouteMeta;
 import cn.edsmall.router_compiler.utils.Consts;
 import cn.edsmall.router_compiler.utils.Log;
 import cn.edsmall.router_compiler.utils.Utils;
 
+/**
+ * 注解处理器
+ * 处理注解{@link Route }
+ */
 @AutoService(Processor.class)
 /**
  * 处理器接收的参数 代替{@link AbstractProcessor#getSupportedOptions()} 函数
@@ -139,6 +144,10 @@ public class RouteProcessor extends AbstractProcessor {
             //检查是否配置 ground 如果没有配置则从path中截取出组名
             categories(routeMeta);
         }
+        //生成$$Group$$  记录分组表
+
+        //生成$$Root$$  记录路由表
+
 
     }
 
@@ -160,13 +169,8 @@ public class RouteProcessor extends AbstractProcessor {
             }
 
         } else {
-            log.i("Group info Error" + routeMeta.getPath());
+            log.i("Group info Error==" + routeMeta.getPath());
         }
-        //生成$$Group$$  记录分组表
-
-        //生成$$Root$$  记录路由表
-
-
     }
 
     /**
