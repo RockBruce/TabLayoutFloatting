@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'android-aspectjx'
 android {
     compileSdkVersion androidId.compileSdkVersion
 
     defaultConfig {
-        applicationId "cn.edsmall.tablayoutfloatting"
+        applicationId appId["app"]
         minSdkVersion androidId.minSdkVersion
         targetSdkVersion androidId.targetSdkVersion
         versionCode androidId.versionCode
@@ -22,7 +22,9 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+
     }
+    println("hello，gradle"+project.getName())
      dataBinding{
          enabled=true
      }
@@ -47,8 +49,10 @@ android {
         implementation 'com.alibaba:fastjson:1.2.75'
         //注解处理器
         annotationProcessor project(':router-compiler')
-       //自定义注解模块
-        implementation project(':router-annotation')
+        //注解api
+        implementation project(':router-core')
+
+
         if (isModule) {
             implementation project(':login')
             implementation project(':register')
@@ -63,10 +67,14 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.1'
     implementation 'androidx.navigation:navigation-ui:2.3.1'
+    //viewmodel and livedata
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
     implementation project(path: ':network')
+    //权限、双击、统计模块
+    implementation project(path: ':lib-section')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 
 

@@ -1,11 +1,12 @@
 ext {
     //library包(true) 和 集成开发(false)
-    isModule = false
+    isModule = true
     url = [
             "debug"  : "https//192.169.48.2",    //测试环境
             "release": "https//192.169.48.1"  //正式环境
     ]
     appId = [
+            "app":"cn.edsmall.tablayoutfloatting",
             "login": "cn.edsmall.login",
             "register": "cn.edsmall.register"
     ]

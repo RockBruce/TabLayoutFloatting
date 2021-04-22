@@ -17,16 +17,16 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/home_case" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/home_case" />
 
+              <TextView
+                  android:layout_width="match_parent"
+                  android:textColor="@color/colorTab"
+                  android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <!--tab和ViewPager-->

@@ -1,0 +1,12 @@
+这是一个切面编程的module,如果引用这个module
+1.在工程最外层build.gradle中引用
+ dependencies {
+        //AOP切面编程依赖
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'//ADD
+    }
+ 2.在build.gradle(:app)中引用
+ apply plugin: 'android-aspectjx'
+
+
+ 这module的功能有 防止双击、权限申请、统计（事件点击和界面停留时长）

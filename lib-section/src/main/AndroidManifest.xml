@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.edsmall.lib_section">
+
+    <application>
+        <activity android:name="cn.edsmall.lib_section.PermissionActivity" android:theme="@style/translucent"></activity>
+    </application>
+
+</manifest>

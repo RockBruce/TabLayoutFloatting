@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.edsmall.tablayoutfloatting.utils.EdsRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</cn.edsmall.tablayoutfloatting.utils.EdsRelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tl"
+        android:text="跳转登录界面"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+
+    </TextView>
+</layout>

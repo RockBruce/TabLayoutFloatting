@@ -37,6 +37,7 @@ import netscape.javascript.JSObject;
  * 处理注解{@link ActivityDestination }
  * 处理注解{@link FragmentDestination }
  */
+//
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 //处理哪些注解

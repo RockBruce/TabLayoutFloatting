@@ -1,8 +1,10 @@
 
 if (isModule) {
     apply plugin: 'com.android.library'
+    apply plugin: 'kotlin-android'
 } else {
     apply plugin: 'com.android.application'    //独立运行条件一
+    apply plugin: 'kotlin-android'
 }
 android {
     compileSdkVersion androidId.compileSdkVersion
@@ -21,6 +23,11 @@ android {
         //给java代码暴露，标记正式环境和测试环境的标记
         //组件化和集成化的时候需要
         buildConfigField("boolean", "isModule", String.valueOf(isModule))
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -29,12 +36,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    //资源配置
     sourceSets {
         main {
             if (!isModule) {
                 //组件化模块，需要单独运行时
+                //单独配置ManiFest.xml文件，组件化开发会用到这个文件
                 manifest.srcFile 'src/main/logintest/AndroidManifest.xml'
-                java.srcDirs     'src/main/logintest/java' ,'src/main/java'
+                //单独配置的源文件下的包名要跟默认源文件包名要一个样，cn.desmall.login
+                java.srcDirs 'src/main/logintest/java', 'src/main/java'
                 println("app")
 
             } else {
@@ -55,5 +65,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //注解处理器
+    annotationProcessor project(':router-compiler')
+    //自定义注解模块
+    implementation project(':router-core')
 
 }
